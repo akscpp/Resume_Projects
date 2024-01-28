@@ -1,4 +1,4 @@
-import email_conf
+import conf
 from boltiot import Email, Bolt
 import json
 import time
@@ -8,12 +8,13 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
+# Constants
 minimum_limit = 300  # the minimum threshold of light value 
 maximum_limit = 600  # the maximum threshold of light value 
 historical_data = []  # list to store historical light intensity data
 
-mybolt = Bolt(email_conf.API_KEY, email_conf.DEVICE_ID)
-mailer = Email(email_conf.MAILGUN_API_KEY, email_conf.SANDBOX_URL, email_conf.SENDER_EMAIL, email_conf.RECIPIENT_EMAIL)
+mybolt = Bolt(conf.API_KEY, conf.DEVICE_ID)
+mailer = Email(conf.MAILGUN_API_KEY, conf.SANDBOX_URL, conf.SENDER_EMAIL, conf.RECIPIENT_EMAIL)
 
 def read_sensor_value():
     """Reads and returns the current sensor value."""
@@ -31,7 +32,7 @@ def collect_historical_data():
         time.sleep(10)
 
 def train_polynomial_regression_model():
-    #Trains a polynomial regression model using historical data.
+    """Trains a polynomial regression model using historical data."""
     global historical_data
     X = np.arange(1, len(historical_data) + 1).reshape(-1, 1)
     y = np.array(historical_data).reshape(-1, 1)
