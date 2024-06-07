@@ -97,7 +97,7 @@ def main():
 
             if sensor_value > maximum_limit or sensor_value < minimum_limit:
                 print("Making request to Mailgun to send an email")
-                response = mailer.send_email("Alert", f"The current temperature sensor value is {sensor_value}, Predicted Intensity: {predicted_intensity}")
+                response = mailer.send_email("Alert", f"The current light sensor value is {sensor_value}, Predicted Intensity: {predicted_intensity}")
                 response_text = json.loads(response.text)
                 print("Response received from Mailgun is: " + str(response_text['message']))
 
